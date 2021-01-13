@@ -61,18 +61,20 @@ class Environment():
         return content
 
 #Create Defeault Preamble to be used in TexFile
-default_preamble = []
-default_preamble.append(Command('documentclass', arguments=['article'], options=[('', 'a4paper'), ('', '12pt')]))
-default_preamble.append(Command('usepackage', arguments=['amsmath']))
-default_preamble.append(Command('usepackage', arguments=['amssymb']))
-default_preamble.append(Command('usepackage', arguments=['graphicx']))
-default_preamble.append(Command('usepackage', arguments=['geometry'], options=[('margin', '1in')]))
-default_preamble.append(Command('setlength', arguments=[Command('parindent'), '0pt']))
+def make_default_preamble():
+    default_preamble = []
+    default_preamble.append(Command('documentclass', arguments=['article'], options=[('', 'a4paper'), ('', '12pt')]))
+    default_preamble.append(Command('usepackage', arguments=['amsmath']))
+    default_preamble.append(Command('usepackage', arguments=['amssymb']))
+    default_preamble.append(Command('usepackage', arguments=['graphicx']))
+    default_preamble.append(Command('usepackage', arguments=['geometry'], options=[('margin', '1in')]))
+    default_preamble.append(Command('setlength', arguments=[Command('parindent'), '0pt']))
+    return default_preamble
 
 class TexFile():
     """Class representing a Latex file. Contains preamble and body which are lists of Latex objects that comprise of the Latex file's content"""
             
-    def __init__(self, pdf_obj, preamble = default_preamble):
+    def __init__(self, pdf_obj, preamble = make_default_preamble()):
         self.preamble = preamble 
         self.body = pdf_obj.generate_latex()
     

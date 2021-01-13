@@ -1,7 +1,11 @@
 import argparse
-from pdf import *
+from pdftolatex.pdf import *
 
 def main():
+    
+    if not os.path.isdir('localstore'):
+        os.mkdir('localstore')
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', help="Path to PDF in 'docs' folder")
     args = parser.parse_args()

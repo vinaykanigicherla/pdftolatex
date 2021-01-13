@@ -13,11 +13,6 @@ from latex import *
 local_store_folder = "localstore"
 input_folder = "docs"
 
-for i:
-
-    
-ddd
-
 class PDF():
     """PDF Object which represents a PDF. Contains Page objects."""
 
@@ -37,12 +32,14 @@ class PDF():
         page_imgs = [cv2.cvtColor(np.asarray(p), cv2.COLOR_RGB2BGR) for p in pil_pages]
         return [Page(page_img, self) for page_img in page_imgs]
     
-    #TODO: Add graphics path command
     def generate_latex(self):
         content = []
         for page in self.pages:
             content.extend(page.generate_latex())
-        return [Environment(content, 'document')] 
+        
+        graphics_command = Command('graphicspath', [os.path.join(os.getcwd(), self.asset_folder)])
+        
+        return [graphics_command] + [Environment(content, 'document')] 
 
 class Page():
     """Page obejct representing a page. Contains Block objects."""
@@ -88,8 +85,8 @@ class Block():
                     str(self.parent_page.parent_pdf.num_figs)+'.jpg')
             cv2.imwrite(fig_path, self.block)
             self.parent_page.parent_pdf.num_figs += 1
-            fig_env_content = [Command('includegraphics', arguments=[os.getcwd()+fig_path], options=[('width', Command('textwidth'))]), 
-                                Command('centering')] #TODO: filepath in argument is wrong. Use os.path.join()
+            fig_env_content = [Command('includegraphics', arguments=[os.path.join(os.getcwd(), fig_path)], options=[('width', Command('textwidth'))]), 
+                                Command('centering')] 
             return [Environment(fig_env_content, 'figure', options=[('', 'h')])]
 
     def determine_content(self):
