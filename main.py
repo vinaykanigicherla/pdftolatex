@@ -2,7 +2,7 @@ import argparse
 from pdftolatex.pdf import *
 
 def main():
-    
+    """Function to take you from filepath to generated tex file"""
     if not os.path.isdir('localstore'):
         os.mkdir('localstore')
     

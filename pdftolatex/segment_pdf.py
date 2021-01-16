@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from utils import *
 
 def segment(img):
-    
+    """"Input: cv2 image of page. Output: BBox objects for content blocks in page"""
     MIN_TEXT_SIZE = 10
     HORIZONTAL_POOLING = 25
     img_width = img.shape[1]
@@ -54,9 +54,11 @@ def segment(img):
 
 
 def process_bboxes(bboxes):
+    """"Input and Output: List of BBox objects. BBox post-processing to remove redundancy"""
     bboxes = remove_duplicate_bboxes(bboxes)
     bboxes = merge_bboxes(bboxes)
     
+    #Fix BBox overlap 
     for i in range(len(bboxes)-1):
         curr_box, next_box = bboxes[i], bboxes[i+1]
         if curr_box.y_bottom > next_box.y:
@@ -66,9 +68,11 @@ def process_bboxes(bboxes):
     return bboxes
 
 def find_content_blocks(img):
+    """"Find all content blocks in page."""
     return process_bboxes(segment(img))
 
 def test(segment_method):
+    """"Test method. Visualizes segment method on images in test_dir"""
     test_dir = 'test_ims_1'
     boxes_dict = {}
 

@@ -22,6 +22,7 @@ class Command():
         self.text = self.make_text()
 
     def make_text(self):
+        """Output: string. Creates command string, formatting command name, args, and options"""
         text = "\\" + self.command_name
 
         arguments = ""
@@ -56,12 +57,13 @@ class Environment():
         self.content = self.make_content()
 
     def make_content(self):
+        """Output: List of Latex objects. Represents content in order of appearance in environment"""
         start, end = Command('begin', arguments=[self.env_name], options=self.options), Command('end', arguments=[self.env_name])
         content = [start] + self.body + [end]
         return content
 
-#Create Defeault Preamble to be used in TexFile
 def make_default_preamble():
+    """Create default preamble to be used in TexFile"""
     default_preamble = []
     default_preamble.append(Command('documentclass', arguments=['article'], options=[('', 'a4paper'), ('', '12pt')]))
     default_preamble.append(Command('usepackage', arguments=['amsmath']))
@@ -79,10 +81,11 @@ class TexFile():
         self.body = pdf_obj.generate_latex()
     
     def generate_tex_file(self, filename):
+        """Writes the preamble and body to file."""
         write_all(filename, self.unpack_content(self.preamble + self.body)) 
     
     def unpack_content(self, lst):
-        """Makes a list of strings of the content attribute of each Latex object in lst"""
+        """Output: list of strings. List contains lines of the Latex file in order of appearance"""
         content = []
         for obj in lst:
             if isinstance(obj, Environment):

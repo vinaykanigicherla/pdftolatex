@@ -6,7 +6,7 @@ import os
 import cv2
 import pytesseract
 
-from utils import * 
+from utils import *
 from segment_pdf import *
 from latex import *
 
@@ -33,6 +33,7 @@ class PDF():
         return [Page(page_img, self) for page_img in page_imgs]
     
     def generate_latex(self):
+        """Output: List of Latex objects containing content in order of appearance in PDF."""
         content = []
         for page in self.pages:
             content.extend(page.generate_latex())
@@ -52,10 +53,12 @@ class Page():
         self.blocks = self.generate_blocks()
 
     def generate_blocks(self):
+        """Output: List of Block objects"""
         bboxes = find_content_blocks(self.page_img)
         return [Block(bbox, self) for bbox in bboxes]
 
     def generate_latex(self):
+        """Output: List of Latex objects containing content in order of apperance on page"""
         content = []
         for block in self.blocks:
             content.extend(block.generate_latex())
@@ -72,10 +75,11 @@ class Block():
         self.block_type, self.content_string = self.determine_content() #0:Text, 1:Fig
 
     def make_block(self, bbox):
-        """Input: BBox object"""
+        """Input: BBox object, Output: cv2 image"""
         return self.parent_page.page_img[bbox.y:bbox.y_bottom, :]
 
-    def generate_latex(self):
+    def generate_latex(self):>
+        """Output: A singular Latex object (within a list) containing block's content"""
         if self.block_type == 0:
             return [Text(self.content_string), Command('vspace', arguments=['10pt'])]
 
@@ -90,6 +94,7 @@ class Block():
             return [Environment(fig_env_content, 'figure', options=[('', 'h')])]
 
     def determine_content(self):
+        """Output: Tuple with block type at index 1, block content as string at index 2."""
         data_dict = pytesseract.image_to_data(self.block, output_type=pytesseract.Output.DICT)
         confs = [abs(int(c)) for c in data_dict['conf']]
         print('conf_mean: ', np.mean(confs))
