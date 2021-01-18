@@ -77,7 +77,7 @@ class Block():
         """Input: BBox object, Output: cv2 image"""
         return self.parent_page.page_img[bbox.y:bbox.y_bottom, :]
 
-    def generate_latex(self):>
+    def generate_latex(self):
         """Output: A singular Latex object (within a list) containing block's content"""
         if self.block_type == 0:
             return [Text(self.content_string), Command('vspace', arguments=['10pt'])]
