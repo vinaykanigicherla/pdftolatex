@@ -5,6 +5,7 @@ import pdf2image
 import os
 import cv2
 import pytesseract
+from tqdm import tqdm
 
 from pdftolatex.utils import *
 from pdftolatex.segment_pdf import *
@@ -29,12 +30,14 @@ class PDF():
         pil_pages = pdf2image.convert_from_path(path)
         save_pil_images(pil_pages, os.path.join(local_store_folder, self.name + "pages"))
         page_imgs = [cv2.cvtColor(np.asarray(p), cv2.COLOR_RGB2BGR) for p in pil_pages]
-        return [Page(page_img, self) for page_img in page_imgs]
+        print("Segmenting pages...")
+        return [Page(page_img, self) for page_img in tqdm(page_imgs)]
     
     def generate_latex(self):
         """Output: List of Latex objects containing content in order of appearance in PDF."""
         content = []
-        for page in self.pages:
+        print("Generating LaTex...")
+        for page in tqdm(self.pages):
             content.extend(page.generate_latex())
         
         graphics_command = Command('graphicspath', [os.path.join(os.getcwd(), self.asset_folder)])
@@ -96,7 +99,6 @@ class Block():
         """Output: Tuple with block type at index 1, block content as string at index 2."""
         data_dict = pytesseract.image_to_data(self.block, output_type=pytesseract.Output.DICT)
         confs = [abs(int(c)) for c in data_dict['conf']]
-        print('conf_mean: ', np.mean(confs))
         if np.mean(confs) > 40:
             s = ""
             for word in data_dict['text']:
