@@ -11,15 +11,14 @@ from segment_pdf import *
 from latex import *
 
 local_store_folder = "localstore"
-input_folder = "docs"
 
 class PDF():
     """PDF Object which represents a PDF. Contains Page objects."""
 
-    def __init__(self, filename):
+    def __init__(self, filepath):
         """Input: Filename of PDF with '.pdf' extension contained within input_folder"""
-        self.path = os.path.join(input_folder, filename)
-        self.name = filename.split('.')[0]
+        self.path = filepath
+        self.name = get_file_name(os.path.basename(filepath))
         self.pages = self.pdftopages(self.path)
         self.asset_folder = os.path.join(local_store_folder, self.name + 'assets')
         os.mkdir(self.asset_folder)

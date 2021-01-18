@@ -80,6 +80,8 @@ def expand_bbox(box, expand_factor):
 
 #Latex related 
 
+get_file_name = lambda x: x.split('.')[0]
+
 def escape_special_chars(s):
     """Return string s with LaTex special characters escaped."""
     special_chars = ['&', '%', '$', '#', '_', '{', '}']

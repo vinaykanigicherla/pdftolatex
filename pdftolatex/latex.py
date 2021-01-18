@@ -76,8 +76,8 @@ def make_default_preamble():
 class TexFile():
     """Class representing a Latex file. Contains preamble and body which are lists of Latex objects that comprise of the Latex file's content"""
             
-    def __init__(self, pdf_obj, preamble = make_default_preamble()):
-        self.preamble = preamble 
+    def __init__(self, pdf_obj, use_default_preamble=True):
+        self.preamble = make_default_preamble() if use_default_preamble else []
         self.body = pdf_obj.generate_latex()
     
     def generate_tex_file(self, filename):
@@ -95,4 +95,6 @@ class TexFile():
                 content.append(obj.text)
         return [s.replace("\x0c", Command('vspace', arguments=['10pt']).text) for s in content]
 
-
+    def add_to_preamble(obj):
+        """Add Latex obj to preamble."""
+        self.preamble.append(obj)
