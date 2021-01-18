@@ -1,5 +1,5 @@
 #latex.py
-from utils import *
+from pdftolatex.utils import *
              
 class Text():
     """Class representing regular Latex text.

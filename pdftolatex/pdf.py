@@ -6,9 +6,9 @@ import os
 import cv2
 import pytesseract
 
-from utils import *
-from segment_pdf import *
-from latex import *
+from pdftolatex.utils import *
+from pdftolatex.segment_pdf import *
+from pdftolatex.latex import *
 
 local_store_folder = "localstore"
 

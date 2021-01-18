@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-from utils import *
+from pdftolatex.utils import *
 
 def segment(img):
     """"Input: cv2 image of page. Output: BBox objects for content blocks in page"""
