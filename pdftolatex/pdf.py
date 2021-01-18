@@ -30,13 +30,13 @@ class PDF():
         pil_pages = pdf2image.convert_from_path(path)
         save_pil_images(pil_pages, os.path.join(local_store_folder, self.name + "pages"))
         page_imgs = [cv2.cvtColor(np.asarray(p), cv2.COLOR_RGB2BGR) for p in pil_pages]
-        print("Segmenting pages...")
+        print(f"Segmenting pages for {self.name}...")
         return [Page(page_img, self) for page_img in tqdm(page_imgs)]
     
     def generate_latex(self):
         """Output: List of Latex objects containing content in order of appearance in PDF."""
         content = []
-        print("Generating LaTex...")
+        print(f"Generating LaTex... for {self.name}")
         for page in tqdm(self.pages):
             content.extend(page.generate_latex())
         
