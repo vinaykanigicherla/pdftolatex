@@ -21,6 +21,6 @@ To use pdftolatex run `convert_pdf.py` with either the `--filepath` argument to 
 - tqdm
 
 ### Future Improvements
-[] Implement ML model to classify non-text regions
-[] Implement ML modles to generate LaTex code for tables and equations instead of merely including their pictures
-[] Create Web Interface
+- [] Implement ML model to classify non-text regions
+- [] Implement ML models to generate LaTex code for tables and equations instead of merely including their pictures
+- [] Create Web Interface
