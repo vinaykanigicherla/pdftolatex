@@ -21,6 +21,4 @@ To use pdftolatex run `convert_pdf.py` with either the `--filepath` argument to 
 - tqdm
 
 ### Future Improvements
-- [ ] Implement ML model to classify non-text regions
-- [ ] Implement ML models to generate LaTex code for tables and equations instead of merely including their pictures
-- [ ] Create Web Interface
+PDF2Latex is a naive traditional computer vision based program which may not always create the best results. Currently working on updated deep learning based "PDF decompilation" tool in my free time(hopefully will be ready by Summer 2021). 
