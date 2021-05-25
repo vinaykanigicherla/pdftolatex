@@ -18,7 +18,7 @@ def convert(filepath):
 
 def main():   
     parser = argparse.ArgumentParser(description="Generate a .tex file from a .pdf file.")
-    parser.add_argument('filepath', type=str, help="Path to pdf to be converted")
+    parser.add_argument('--filepath', type=str, help="Path to pdf to be converted")
     parser.add_argument('--folderpath', type=str, help="Path to folder containing pdfs to be converted. All pdfs in the folder will be converted")
     
     args = parser.parse_args()
