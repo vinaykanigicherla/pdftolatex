@@ -14,11 +14,15 @@ To use pdftolatex run `convert_pdf.py` with either the `--filepath` argument to 
     python convert_pdf.py --folderpath docs/example/
 
 ## Notes
-### Packages Required
-- OpenCV4 (cv2)
-- pytesseract 
-- pillow
-- tqdm
+### Instalation
+
+    pip install -r requirements.txt
+
+### Dependencies
+- Python 3.10
+
+You may reqyure the following packages to be installed on your system:
+- sudo apt install libtesseract-dev libleptonica-dev liblept5 libleptonica-dev tesseract-ocr -y
 
 ### Future Improvements
 PDF2Latex is a naive traditional computer vision based program which may not always create the best results. Currently working on updated deep learning based "PDF decompilation" tool in my free time(hopefully will be ready by Summer 2021). 
